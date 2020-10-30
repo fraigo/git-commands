@@ -42,6 +42,27 @@ Revert the last commit (locally, before pushing to remote). This will remove the
 git reset --soft HEAD~1
 ```
 
+## Pulling changes
+
+Pull changes into a forked repo from a branch in another source repo:
+
+```
+git pull https://github.com/fraigo/other-repo.git source-branch
+```
+
+Another way more consistent is to save the repo url as a remote source with alias (upstream in this case).
+
+```
+git remote add upstream https://github.com/fraigo/other-repo.git
+git fetch upstream
+```
+
+In this way, you can use the source repo for any other operation referencing branches as, for example, upstream/my-branch. For example, pulling remote changes and then replay your commits on top of that branch
+
+```
+git rebase upstream/my-branch
+```
+
 ## Pushing
 
 How to push local to the remote (master) repository for the first time (to an empty repo)
@@ -79,7 +100,7 @@ Create a new branch in your local repo and switch to that branch
 git checkout -b new-branch
 ```
 
-Also, the first push of a new branch to a remote should be (-u is equivalent to the option --set-upstream ). In this way, you can push and set up to track the remote branch origin/new-branch
+Also, the first push of a new branch to a remote should be (`-u` is equivalent to the option `--set-upstream` ). In this way, you can push and set up to track the remote branch origin/new-branch
 
 ```
 git push -u origin new-branch
@@ -91,14 +112,25 @@ Checkout/Switch to an existing branch
 git checkout test-branch
 ```
 
-Delete a branch locally and remotely
+Delete a branch locally and remotely (the `-r` option is to delete it remotely)
 
 ```
-git branch -d my-branch
+git branch -d -r my-branch
+```
+
+Also if you already deleted the branch locally, without the -r option:
+
+```
 git push origin --delete my-branch
 ```
 
-After deleting the branch you can sync (prune) your local branches using
+Also, if you still see the branch in the remote repository, supposedly deleted, you need to prune the origin:
+
+```
+git remote prune origin
+```
+
+After deleting the branch you can sync your local branches using
 
 ```
 git fetch -p
