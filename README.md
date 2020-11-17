@@ -72,6 +72,26 @@ git remote add origin https://github.com/fraigo/git-commands.git
 git push -u origin master
 ```
 
+## Diff
+
+In some cases, we need to check if a branch is up-to-date or different from another one (including the master branch).
+
+Show only a list of different files
+
+```
+git diff --name-only
+```
+
+If you need more information about the difference you can use –stat to see a more graphical diff statistic, or –numstat to see only a number of changes (additions/deletions).
+
+```
+git diff --stat
+```
+
+```
+git diff --numstat
+```
+
 ## Refactoring
 
 Reset your repo to a previous commit (all changes after this commit will be removed). You can see the commit hashes using git log
